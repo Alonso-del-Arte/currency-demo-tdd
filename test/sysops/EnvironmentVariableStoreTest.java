@@ -37,6 +37,9 @@ class EnvironmentVariableStoreTest {
         String excMsg = exception.getMessage();
         assert excMsg != null : "Message should not be null";
         System.out.println("\"" + excMsg + "\"");
+        String msg = "Exception message should include label \"" + badLabel 
+                + "\"";
+        assert excMsg.contains(badLabel) : msg;
     }
     
 }
