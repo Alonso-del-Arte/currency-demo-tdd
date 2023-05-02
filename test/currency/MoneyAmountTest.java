@@ -3,6 +3,7 @@ package currency;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,6 +33,40 @@ class MoneyAmountTest {
             String actual = amount.toString();
             assertEquals(expected, actual);
         }
+    }
+    
+    @Test
+    void testConstructorRejectsPseudoCurrencies() {
+        Set<Currency> currencies = Currency.getAvailableCurrencies();
+        for (Currency currency : currencies) {
+            int fractDigits = currency.getDefaultFractionDigits();
+            if (fractDigits < 0) {
+                Throwable exception 
+                        = assertThrows(IllegalArgumentException.class, () -> {
+                    MoneyAmount badAmount = new MoneyAmount(0, currency);
+                    System.out.println("Instantiated amount " 
+                            + badAmount.toString() + " with currency "  
+                            + currency.getDisplayName() + " which has " 
+                            + fractDigits + " fractional digits");
+                });
+                String excMsg = exception.getMessage();
+                assert excMsg != null : "Message should not be null";
+                String symbol = currency.getSymbol();
+                String msg = "Message should include symbol " + symbol 
+                        + " for pseudo-currency " + currency.getDisplayName();
+                assert excMsg.contains(symbol) : msg;
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
 }
