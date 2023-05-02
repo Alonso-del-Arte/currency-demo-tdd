@@ -4,6 +4,13 @@ import java.util.Currency;
 
 public class MoneyAmount implements Comparable<MoneyAmount> {
     
+    private final short cents;
+    
+    @Override
+    public String toString() {
+        return "$0.0" + this.cents;
+    }
+    
     public int compareTo(MoneyAmount other) {
         return 0;
     }
@@ -13,7 +20,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     }
 
     public MoneyAmount(long units, Currency currency, short divisions) {
-        //
+        this.cents = divisions;
     }
 
 }
