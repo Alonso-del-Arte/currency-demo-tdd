@@ -45,6 +45,12 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     }
 
     public MoneyAmount(long units, Currency currency, short divisions) {
+        int fractDigits = currency.getDefaultFractionDigits();
+        if (fractDigits < 0) {
+            String excMsg = "Currency " + currency.getSymbol() 
+                    + " is not valid";
+            throw new IllegalArgumentException(excMsg);
+        }
         this.cents = divisions;
     }
 
