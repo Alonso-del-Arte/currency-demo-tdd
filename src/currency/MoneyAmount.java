@@ -6,6 +6,26 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     private final short cents;
     
+    // TODO: Write tests for this
+    public long getUnits() {
+        return -1;
+    }
+    
+    // TODO: Write tests for this
+    public long getFullAmountInCents() {
+        return -1;
+    }
+    
+    // TODO: Write tests for this
+    public short getCents() {
+        return -1;
+    }
+    
+    // TODO: Write tests for this
+    public Currency getCurrency() {
+        return Currency.getInstance("AED");
+    }
+    
     @Override
     public String toString() {
         String intermediate = "$0.";
@@ -15,6 +35,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         return intermediate + this.cents;
     }
     
+    // TODO: Write tests for this
     public int compareTo(MoneyAmount other) {
         return 0;
     }
