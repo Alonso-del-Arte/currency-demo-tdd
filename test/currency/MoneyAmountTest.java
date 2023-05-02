@@ -24,4 +24,14 @@ class MoneyAmountTest {
         }
     }
 
+    @Test
+    void testToStringTenToNinetyNineCents() {
+        for (short cents = 10; cents < 100; cents++) {
+            MoneyAmount amount = new MoneyAmount(0, DOLLARS, cents);
+            String expected = "$0." + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+
 }
