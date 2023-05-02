@@ -8,7 +8,11 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     @Override
     public String toString() {
-        return "$0.0" + this.cents;
+        String intermediate = "$0.";
+        if (this.cents < 10) {
+            intermediate += "0";
+        }
+        return intermediate + this.cents;
     }
     
     public int compareTo(MoneyAmount other) {
