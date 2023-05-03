@@ -8,6 +8,19 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     private final short cents;
     
+    private final int multiplier;
+    
+    private static int calculateMultiplier(Currency currency) {
+        int mult = 1;
+        int multCount = 0;
+        int stop = currency.getDefaultFractionDigits();
+        while (multCount < stop) {
+            mult *= 10;
+            multCount++;
+        }
+        return mult;
+    }
+    
     /**
      * Tells how many full units of currency there are in the amount. Any cents, 
      * mills, darahim, etc., are ignored.
@@ -18,8 +31,14 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         return this.dollars;
     }
     
+    /**
+     * Tells how many divisions of the unit of currency there are in the amount. 
+     * The units are multiplied as needed and the divisions are added.
+     * @return The number of divisions of the unit of currency. For example, if 
+     * the amount is &euro;197.54, this function returns 19754.
+     */
     public long getFullAmountInCents() {
-        return this.dollars * 100 + this.cents;
+        return this.dollars * this.multiplier + this.cents;
     }
     
     // TODO: Write tests for this
@@ -29,7 +48,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     // TODO: Write tests for this
     public Currency getCurrency() {
-        return Currency.getInstance("AED");
+        return Currency.getInstance("XTS");
     }
     
     @Override
@@ -59,6 +78,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         }
         this.dollars = units;
         this.cents = divisions;
+        this.multiplier = calculateMultiplier(currency);
     }
 
 }
