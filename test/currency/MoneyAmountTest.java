@@ -1,5 +1,7 @@
 package currency;
 
+import static currency.CurrencyChooser.chooseCurrency;
+
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Random;
@@ -18,7 +20,10 @@ class MoneyAmountTest {
     @Test
     void testGetUnits() {
         System.out.println("getUnits");
-        fail("Haven't written test yet");
+        int expected = RANDOM.nextInt(32768) - 16384;
+        MoneyAmount amount = new MoneyAmount(expected, chooseCurrency());
+        long actual = amount.getUnits();
+        assertEquals(expected, actual);
     }
 
     @Test
