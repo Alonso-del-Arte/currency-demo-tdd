@@ -8,9 +8,14 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     private final short cents;
     
-    // TODO: Write tests for this
+    /**
+     * Tells how many full units of currency there are in the amount. Any cents, 
+     * mills, darahim, etc., are ignored.
+     * @return The number of units. For example, if the amount is &euro;197.54, 
+     * this function returns 197.
+     */
     public long getUnits() {
-        return -1;
+        return this.dollars;
     }
     
     // TODO: Write tests for this
