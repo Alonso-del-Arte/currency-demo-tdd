@@ -62,6 +62,15 @@ class MoneyAmountTest {
     }
 
     @Test
+    void testGetDivisions() {
+        System.out.println("getDivisions");
+        short expected = (short) RANDOM.nextInt(100);
+        MoneyAmount amount = new MoneyAmount(0, EUROS, expected);
+        long actual = amount.getDivisions();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     void testToStringZeroToNineCents() {
         for (short cents = 0; cents < 9; cents++) {
             MoneyAmount amount = new MoneyAmount(0, DOLLARS, cents);

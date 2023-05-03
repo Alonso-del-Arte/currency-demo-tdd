@@ -42,7 +42,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     }
     
     // TODO: Write tests for this
-    public short getCents() {
+    public short getDivisions() {
         return -1;
     }
     
