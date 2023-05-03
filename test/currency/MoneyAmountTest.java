@@ -71,6 +71,15 @@ class MoneyAmountTest {
     }
     
     @Test
+    void testGetCurrency() {
+        System.out.println("getCurrency");
+        Currency expected = chooseCurrency();
+        MoneyAmount amount = new MoneyAmount(0, expected);
+        Currency actual = amount.getCurrency();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     void testToStringZeroToNineCents() {
         for (short cents = 0; cents < 9; cents++) {
             MoneyAmount amount = new MoneyAmount(0, DOLLARS, cents);
