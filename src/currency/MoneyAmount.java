@@ -4,6 +4,8 @@ import java.util.Currency;
 
 public class MoneyAmount implements Comparable<MoneyAmount> {
     
+    private final long dollars;
+    
     private final short cents;
     
     // TODO: Write tests for this
@@ -28,7 +30,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     @Override
     public String toString() {
-        String intermediate = "$0.";
+        String intermediate = "$" + this.dollars + '.';
         if (this.cents < 10) {
             intermediate += "0";
         }
@@ -51,6 +53,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
                     + " is not valid";
             throw new IllegalArgumentException(excMsg);
         }
+        this.dollars = units;
         this.cents = divisions;
     }
 
