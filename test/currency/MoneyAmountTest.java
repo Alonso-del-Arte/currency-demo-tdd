@@ -25,6 +25,17 @@ class MoneyAmountTest {
         long actual = amount.getUnits();
         assertEquals(expected, actual);
     }
+    
+    @Test
+    void testGetFullAmountInCents() {
+        System.out.println("getFullAmountInCents");
+        int dollars = RANDOM.nextInt(524288);
+        short cents = (short) RANDOM.nextInt(100);
+        MoneyAmount amount = new MoneyAmount(dollars, DOLLARS, cents);
+        int expected = dollars * 100 + cents;
+        long actual = amount.getFullAmountInCents();
+        assertEquals(expected, actual);
+    }
 
     @Test
     void testToStringZeroToNineCents() {
