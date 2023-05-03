@@ -55,7 +55,7 @@ class MoneyAmountTest {
     void testGetFullAmountInCentsDinars() {
         int dinars = RANDOM.nextInt(524288);
         short darahim = (short) RANDOM.nextInt(1000);
-        MoneyAmount amount = new MoneyAmount(dinars, DOLLARS, darahim);
+        MoneyAmount amount = new MoneyAmount(dinars, DINARS, darahim);
         int expected = dinars * 1000 + darahim;
         long actual = amount.getFullAmountInCents();
         assertEquals(expected, actual);
