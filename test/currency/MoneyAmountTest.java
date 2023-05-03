@@ -13,7 +13,13 @@ class MoneyAmountTest {
     
     private static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
-    private static final Random RANDOM = new Random();
+    static final Random RANDOM = new Random();
+    
+    @Test
+    void testGetUnits() {
+        System.out.println("getUnits");
+        fail("Haven't written test yet");
+    }
 
     @Test
     void testToStringZeroToNineCents() {
