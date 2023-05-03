@@ -18,9 +18,8 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         return this.dollars;
     }
     
-    // TODO: Write tests for this
     public long getFullAmountInCents() {
-        return -1;
+        return this.dollars * 100 + this.cents;
     }
     
     // TODO: Write tests for this
