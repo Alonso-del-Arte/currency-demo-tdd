@@ -41,9 +41,15 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         return this.dollars * this.multiplier + this.cents;
     }
     
-    // TODO: Write tests for this
+    /**
+     * Tells how many divisions of the unit of currency there are in the amount 
+     * minus the full units.
+     * @return The number of divisions of the unit of currency minus the full 
+     * units. For example, if the amount is &euro;197.54, this function returns 
+     * 54.
+     */
     public short getDivisions() {
-        return -1;
+        return this.cents;
     }
     
     // TODO: Write tests for this
