@@ -10,6 +10,8 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     private final int multiplier;
     
+    private final Currency currencyID;
+    
     private static int calculateMultiplier(Currency currency) {
         int mult = 1;
         int multCount = 0;
@@ -52,9 +54,13 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         return this.cents;
     }
     
-    // TODO: Write tests for this
+    /**
+     * Tells what currency this money amount is drawn in.
+     * @return The currency. For example, if the amount is &euro;197.54, this 
+     * function returns EUR.
+     */
     public Currency getCurrency() {
-        return Currency.getInstance("XTS");
+        return this.currencyID;
     }
     
     @Override
@@ -85,6 +91,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         this.dollars = units;
         this.cents = divisions;
         this.multiplier = calculateMultiplier(currency);
+        this.currencyID = currency;
     }
 
 }
