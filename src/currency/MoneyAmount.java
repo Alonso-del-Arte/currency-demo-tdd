@@ -93,5 +93,14 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         this.multiplier = calculateMultiplier(currency);
         this.currencyID = currency;
     }
+    
+    private MoneyAmount(Currency currency, long fullAmountInCents, 
+            int verifiedMultiplier) {
+        this.dollars = fullAmountInCents / verifiedMultiplier;
+        long adjust = this.dollars * verifiedMultiplier;
+        this.cents = (short) (fullAmountInCents - adjust);
+        this.multiplier = verifiedMultiplier;
+        this.currencyID = currency;
+    }
 
 }
