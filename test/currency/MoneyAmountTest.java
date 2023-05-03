@@ -13,7 +13,13 @@ import org.junit.jupiter.api.Test;
 
 class MoneyAmountTest {
     
+    private static final Currency DINARS = Currency.getInstance("LYD");
+    
     private static final Currency DOLLARS = Currency.getInstance(Locale.US);
+    
+    private static final Currency EUROS = Currency.getInstance("EUR");
+    
+    private static final Currency YEN = Currency.getInstance(Locale.JAPAN);
     
     static final Random RANDOM = new Random();
     
@@ -33,6 +39,24 @@ class MoneyAmountTest {
         short cents = (short) RANDOM.nextInt(100);
         MoneyAmount amount = new MoneyAmount(dollars, DOLLARS, cents);
         int expected = dollars * 100 + cents;
+        long actual = amount.getFullAmountInCents();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetFullAmountInCentsYen() {
+        int expected = RANDOM.nextInt(524288);
+        MoneyAmount amount = new MoneyAmount(expected, YEN);
+        long actual = amount.getFullAmountInCents();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetFullAmountInCentsDinars() {
+        int dinars = RANDOM.nextInt(524288);
+        short darahim = (short) RANDOM.nextInt(1000);
+        MoneyAmount amount = new MoneyAmount(dinars, DOLLARS, darahim);
+        int expected = dinars * 1000 + darahim;
         long actual = amount.getFullAmountInCents();
         assertEquals(expected, actual);
     }
