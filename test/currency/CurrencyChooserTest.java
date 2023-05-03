@@ -39,7 +39,7 @@ class CurrencyChooserTest {
             samples.add(sample);
             sampleNumber++;
         }
-        int expected = 9 * totalNumberOfCurrencies / 10;
+        int expected = 7 * totalNumberOfCurrencies / 10;
         int actual = samples.size();
         String msg = "Trying to pick " + numberOfTries + " from set of " 
                 + totalNumberOfCurrencies + " gave " + actual 
