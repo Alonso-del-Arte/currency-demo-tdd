@@ -36,6 +36,18 @@ class MoneyAmountTest {
     }
     
     @Test
+    void testDollarsPlusZeroToNineCents() {
+        int dollarQty = RANDOM.nextInt(1000) + 1;
+        String part = "$" + dollarQty + ".0";
+        for (short cents = 0; cents < 9; cents++) {
+            MoneyAmount amount = new MoneyAmount(dollarQty, DOLLARS, cents);
+            String expected = part + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
     void testConstructorRejectsPseudoCurrencies() {
         Set<Currency> currencies = Currency.getAvailableCurrencies();
         for (Currency currency : currencies) {
