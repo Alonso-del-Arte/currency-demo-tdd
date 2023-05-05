@@ -307,6 +307,16 @@ class MoneyAmountTest {
     }
     
     @Test
+    void testToString() {
+        System.out.println("toString");
+        int yenQty = RANDOM.nextInt(1048576);
+        MoneyAmount amount = new MoneyAmount(yenQty, YEN);
+        String expected = "JPY" + yenQty;
+        String actual = amount.toString();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     void testToStringDinarsNegativeDinarAmountPlus100To999NineDarahim() {
         int dinarQty = RANDOM.nextInt(1000) + 1;
         String part = "-LYD" + dinarQty + '.';
