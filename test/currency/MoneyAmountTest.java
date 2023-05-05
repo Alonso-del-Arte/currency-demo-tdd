@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 
 class MoneyAmountTest {
     
-    private static final Currency DINARS = Currency.getInstance("LYD");
+    private static final Currency DINARS 
+            = Currency.getInstance(Locale.forLanguageTag("ar-LY"));
     
     private static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
@@ -168,7 +169,7 @@ class MoneyAmountTest {
     }
     
     @Test
-    void testToStringEurosDollarsPlusZeroToNineCents() {
+    void testToStringEurosPlusZeroToNineCents() {
         int euroQty = RANDOM.nextInt(1000) + 1;
         String part = "EUR" + euroQty + ".0";
         for (short cents = 0; cents < 9; cents++) {
@@ -180,7 +181,7 @@ class MoneyAmountTest {
     }
     
     @Test
-    void testToStringEurosDollarsPlusTenToNinetyCentsCents() {
+    void testToStringEurosPlusTenToNinetyCentsCents() {
         int euroQty = RANDOM.nextInt(1000) + 1;
         String part = "EUR" + euroQty + '.';
         for (short cents = 10; cents < 100; cents++) {
@@ -192,7 +193,7 @@ class MoneyAmountTest {
     }
     
     @Test
-    void testToStringEurosNegativeDollarAmountPlusZeroToNineCents() {
+    void testToStringEurosNegativeEuroAmountPlusZeroToNineCents() {
         int euroQty = RANDOM.nextInt(1000) + 1;
         String part = "-EUR" + euroQty + ".0";
         for (short cents = 0; cents < 9; cents++) {
@@ -204,12 +205,114 @@ class MoneyAmountTest {
     }
     
     @Test
-    void testToStringEurosNegativeDollarAmountPlusTenToNinetyNineCents() {
+    void testToStringEurosNegativeEuroAmountPlusTenToNinetyNineCents() {
         int euroQty = RANDOM.nextInt(1000) + 1;
         String part = "-EUR" + euroQty + '.';
         for (short cents = 10; cents < 100; cents++) {
             MoneyAmount amount = new MoneyAmount(-euroQty, EUROS, cents);
             String expected = part + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringDinarsZeroToNineDarahim() {
+        for (short darahim = 0; darahim < 9; darahim++) {
+            MoneyAmount amount = new MoneyAmount(0, DINARS, darahim);
+            String expected = "LYD0.00" + darahim;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+
+    @Test
+    void testToStringDinarsTenToNinetyNineDarahim() {
+        for (short darahim = 10; darahim < 100; darahim++) {
+            MoneyAmount amount = new MoneyAmount(0, DINARS, darahim);
+            String expected = "LYD0.0" + darahim;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringDinars100To999Darahim() {
+        for (short darahim = 100; darahim < 1000; darahim++) {
+            MoneyAmount amount = new MoneyAmount(0, DINARS, darahim);
+            String expected = "LYD0." + darahim;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringDinarsPlusZeroToNineDarahim() {
+        int dinarQty = RANDOM.nextInt(1000) + 1;
+        String part = "LYD" + dinarQty + ".00";
+        for (short darahim = 0; darahim < 9; darahim++) {
+            MoneyAmount amount = new MoneyAmount(dinarQty, DINARS, darahim);
+            String expected = part + darahim;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringDinarsPlusTenToNinetyDarahimDarahim() {
+        int dinarQty = RANDOM.nextInt(1000) + 1;
+        String part = "LYD" + dinarQty + ".0";
+        for (short darahim = 10; darahim < 100; darahim++) {
+            MoneyAmount amount = new MoneyAmount(dinarQty, DINARS, darahim);
+            String expected = part + darahim;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringDinarsPlus100To999DarahimDarahim() {
+        int dinarQty = RANDOM.nextInt(1000) + 1;
+        String part = "LYD" + dinarQty + '.';
+        for (short darahim = 100; darahim < 1000; darahim++) {
+            MoneyAmount amount = new MoneyAmount(dinarQty, DINARS, darahim);
+            String expected = part + darahim;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringDinarsNegativeDinarAmountPlusZeroToNineDarahim() {
+        int dinarQty = RANDOM.nextInt(1000) + 1;
+        String part = "-LYD" + dinarQty + ".00";
+        for (short darahim = 0; darahim < 9; darahim++) {
+            MoneyAmount amount = new MoneyAmount(-dinarQty, DINARS, darahim);
+            String expected = part + darahim;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringDinarsNegativeDinarAmountPlusTenToNinetyNineDarahim() {
+        int dinarQty = RANDOM.nextInt(1000) + 1;
+        String part = "-LYD" + dinarQty + ".0";
+        for (short darahim = 10; darahim < 100; darahim++) {
+            MoneyAmount amount = new MoneyAmount(-dinarQty, DINARS, darahim);
+            String expected = part + darahim;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringDinarsNegativeDinarAmountPlus100To999NineDarahim() {
+        int dinarQty = RANDOM.nextInt(1000) + 1;
+        String part = "-LYD" + dinarQty + '.';
+        for (short darahim = 100; darahim < 1000; darahim++) {
+            MoneyAmount amount = new MoneyAmount(-dinarQty, DINARS, darahim);
+            String expected = part + darahim;
             String actual = amount.toString();
             assertEquals(expected, actual);
         }
