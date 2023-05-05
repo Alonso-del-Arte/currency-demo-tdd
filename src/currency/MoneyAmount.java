@@ -65,12 +65,15 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     @Override
     public String toString() {
-        String intermediate = "$" //+ this.currencyID.getSymbol() 
+        String intermediate = this.currencyID.getSymbol() 
                 + Math.abs(this.dollars) + '.';
         if (this.dollars < 0) {
             intermediate = '-' + intermediate;
         }
         if (this.cents < 10) {
+            intermediate += "0";
+        }
+        if (this.cents < 100 && this.multiplier == 1000) {
             intermediate += "0";
         }
         return intermediate + this.cents;
