@@ -63,8 +63,12 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         return this.currencyID;
     }
     
+    // TODO: Refactor to reduce cyclomatic complexity
     @Override
     public String toString() {
+        if (this.multiplier == 1) {
+            return this.currencyID.getSymbol() + this.dollars;
+        }
         String intermediate = this.currencyID.getSymbol() 
                 + Math.abs(this.dollars) + '.';
         if (this.dollars < 0) {
