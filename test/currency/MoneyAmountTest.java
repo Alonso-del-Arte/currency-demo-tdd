@@ -100,7 +100,7 @@ class MoneyAmountTest {
     }
     
     @Test
-    void testDollarsPlusZeroToNineCents() {
+    void testToStringDollarsPlusZeroToNineCents() {
         int dollarQty = RANDOM.nextInt(1000) + 1;
         String part = "$" + dollarQty + ".0";
         for (short cents = 0; cents < 9; cents++) {
@@ -112,11 +112,35 @@ class MoneyAmountTest {
     }
     
     @Test
-    void testDollarsPlusTenToNinetyCentsCents() {
+    void testToStringDollarsPlusTenToNinetyCentsCents() {
         int dollarQty = RANDOM.nextInt(1000) + 1;
         String part = "$" + dollarQty + '.';
         for (short cents = 10; cents < 100; cents++) {
             MoneyAmount amount = new MoneyAmount(dollarQty, DOLLARS, cents);
+            String expected = part + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringNegativeDollarAmountPlusZeroToNineCents() {
+        int dollarQty = RANDOM.nextInt(1000) + 1;
+        String part = "-$" + dollarQty + ".0";
+        for (short cents = 0; cents < 9; cents++) {
+            MoneyAmount amount = new MoneyAmount(-dollarQty, DOLLARS, cents);
+            String expected = part + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringNegativeDollarAmountPlusTenToNinetyNineCents() {
+        int dollarQty = RANDOM.nextInt(1000) + 1;
+        String part = "-$" + dollarQty + '.';
+        for (short cents = 10; cents < 100; cents++) {
+            MoneyAmount amount = new MoneyAmount(-dollarQty, DOLLARS, cents);
             String expected = part + cents;
             String actual = amount.toString();
             assertEquals(expected, actual);
@@ -145,16 +169,6 @@ class MoneyAmountTest {
                 assert excMsg.contains(symbol) : msg;
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
 
 }
