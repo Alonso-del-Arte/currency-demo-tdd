@@ -148,6 +148,74 @@ class MoneyAmountTest {
     }
     
     @Test
+    void testToStringEurosZeroToNineCents() {
+        for (short cents = 0; cents < 9; cents++) {
+            MoneyAmount amount = new MoneyAmount(0, EUROS, cents);
+            String expected = "EUR0.0" + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+
+    @Test
+    void testToStringEurosTenToNinetyNineCents() {
+        for (short cents = 10; cents < 100; cents++) {
+            MoneyAmount amount = new MoneyAmount(0, EUROS, cents);
+            String expected = "EUR0." + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringEurosDollarsPlusZeroToNineCents() {
+        int euroQty = RANDOM.nextInt(1000) + 1;
+        String part = "EUR" + euroQty + ".0";
+        for (short cents = 0; cents < 9; cents++) {
+            MoneyAmount amount = new MoneyAmount(euroQty, EUROS, cents);
+            String expected = part + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringEurosDollarsPlusTenToNinetyCentsCents() {
+        int euroQty = RANDOM.nextInt(1000) + 1;
+        String part = "EUR" + euroQty + '.';
+        for (short cents = 10; cents < 100; cents++) {
+            MoneyAmount amount = new MoneyAmount(euroQty, EUROS, cents);
+            String expected = part + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringEurosNegativeDollarAmountPlusZeroToNineCents() {
+        int euroQty = RANDOM.nextInt(1000) + 1;
+        String part = "-EUR" + euroQty + ".0";
+        for (short cents = 0; cents < 9; cents++) {
+            MoneyAmount amount = new MoneyAmount(-euroQty, EUROS, cents);
+            String expected = part + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    void testToStringEurosNegativeDollarAmountPlusTenToNinetyNineCents() {
+        int euroQty = RANDOM.nextInt(1000) + 1;
+        String part = "-EUR" + euroQty + '.';
+        for (short cents = 10; cents < 100; cents++) {
+            MoneyAmount amount = new MoneyAmount(-euroQty, EUROS, cents);
+            String expected = part + cents;
+            String actual = amount.toString();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
     void testConstructorRejectsPseudoCurrencies() {
         Set<Currency> currencies = Currency.getAvailableCurrencies();
         for (Currency currency : currencies) {
