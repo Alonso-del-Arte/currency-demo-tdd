@@ -65,7 +65,8 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     @Override
     public String toString() {
-        String intermediate = "$" + Math.abs(this.dollars) + '.';
+        String intermediate = this.currencyID.getSymbol() 
+                + Math.abs(this.dollars) + '.';
         if (this.dollars < 0) {
             intermediate = '-' + intermediate;
         }
