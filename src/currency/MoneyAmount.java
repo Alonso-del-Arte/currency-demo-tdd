@@ -65,7 +65,10 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     @Override
     public String toString() {
-        String intermediate = "$" + this.dollars + '.';
+        String intermediate = "$" + Math.abs(this.dollars) + '.';
+        if (this.dollars < 0) {
+            intermediate = '-' + intermediate;
+        }
         if (this.cents < 10) {
             intermediate += "0";
         }
