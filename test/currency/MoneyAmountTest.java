@@ -345,6 +345,22 @@ class MoneyAmountTest {
     }
     
     @Test
+    void testNotEqualsDiffClass() {
+        int units = RANDOM.nextInt(1048576);
+        Currency currency = chooseCurrency();
+        MoneyAmount amount = new MoneyAmount(units, currency);
+        MoneyAmount diffClassAmount = new MoneyAmount(units, currency) {
+            
+            @Override
+            public String toString() {
+                return this.getClass().getName() + "<" + super.toString() + ">";
+            }
+            
+        };
+        assertNotEquals(amount, diffClassAmount);
+    }
+    
+    @Test
     void testConstructorRejectsPseudoCurrencies() {
         Set<Currency> currencies = Currency.getAvailableCurrencies();
         for (Currency currency : currencies) {
