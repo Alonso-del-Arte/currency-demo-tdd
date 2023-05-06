@@ -334,15 +334,15 @@ class MoneyAmountTest {
         for (Currency currency : currencies) {
             int fractDigits = currency.getDefaultFractionDigits();
             if (fractDigits < 0) {
-                Throwable exception 
-                        = assertThrows(IllegalArgumentException.class, () -> {
+                Throwable t = assertThrows(IllegalArgumentException.class, 
+                        () -> {
                     MoneyAmount badAmount = new MoneyAmount(0, currency);
                     System.out.println("Instantiated amount " 
                             + badAmount.toString() + " with currency "  
                             + currency.getDisplayName() + " which has " 
                             + fractDigits + " fractional digits");
                 });
-                String excMsg = exception.getMessage();
+                String excMsg = t.getMessage();
                 assert excMsg != null : "Message should not be null";
                 String symbol = currency.getSymbol();
                 String msg = "Message should include symbol " + symbol 
@@ -350,6 +350,20 @@ class MoneyAmountTest {
                 assert excMsg.contains(symbol) : msg;
             }
         }
+    }
+    
+    @Test
+    void testConstructorRejectsNullCurrency() {
+        int units = RANDOM.nextInt(1048576);
+        Throwable t = assertThrows(NullPointerException.class, () -> {
+            MoneyAmount amount = new MoneyAmount(units, null);
+            System.out.println("Should not have created " 
+                    + amount.getClass().getName() + '@' 
+                    + Integer.toString(amount.hashCode(), 16) + " for " + units 
+                    + " of null currency");
+        });
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Message should not be null";
     }
 
 }
