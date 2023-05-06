@@ -93,6 +93,10 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     }
 
     public MoneyAmount(long units, Currency currency, short divisions) {
+        if (currency == null) {
+            String excMsg = "Currency must not be null";
+            throw new NullPointerException(excMsg);
+        }
         int fractDigits = currency.getDefaultFractionDigits();
         if (fractDigits < 0) {
             String excMsg = "Currency " + currency.getSymbol() 
