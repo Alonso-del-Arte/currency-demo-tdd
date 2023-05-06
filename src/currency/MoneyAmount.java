@@ -85,7 +85,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     @Override
     public boolean equals(Object obj) {
-        return true;
+        return obj != null;
     }
     
     @Override
