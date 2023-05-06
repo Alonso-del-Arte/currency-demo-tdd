@@ -35,4 +35,9 @@ public class CurrencyChooser {
         return CURRENCIES.get(index);
     }
 
+    // TODO: Write tests for this
+    public static Currency chooseCurrency(int fractionDigits) {
+        return chooseCurrency();
+    }
+
 }
