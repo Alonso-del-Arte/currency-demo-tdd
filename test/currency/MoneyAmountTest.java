@@ -329,6 +329,14 @@ class MoneyAmountTest {
     }
     
     @Test
+    void testReferentialEquality() {
+        int units = RANDOM.nextInt(1048576);
+        Currency currency = chooseCurrency();
+        MoneyAmount amount = new MoneyAmount(units, currency);
+        assertEquals(amount, amount);
+    }
+    
+    @Test
     void testConstructorRejectsPseudoCurrencies() {
         Set<Currency> currencies = Currency.getAvailableCurrencies();
         for (Currency currency : currencies) {
