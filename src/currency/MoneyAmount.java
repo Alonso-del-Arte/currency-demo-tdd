@@ -83,6 +83,16 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         return intermediate + this.cents;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        return false;
+    }
+    
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+    
     // TODO: Write tests for this
     public int compareTo(MoneyAmount other) {
         return 0;
