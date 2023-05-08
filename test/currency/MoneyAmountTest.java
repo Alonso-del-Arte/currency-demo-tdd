@@ -369,6 +369,16 @@ class MoneyAmountTest {
     }
     
     @Test
+    void testEquals() {
+        System.out.println("equals");
+        int units = RANDOM.nextInt(1048576);
+        Currency currency = chooseCurrency();
+        MoneyAmount someAmount = new MoneyAmount(units, currency);
+        MoneyAmount sameAmount = new MoneyAmount(units, currency);
+        assertEquals(someAmount, sameAmount);
+    }
+    
+    @Test
     void testConstructorRejectsPseudoCurrencies() {
         Set<Currency> currencies = Currency.getAvailableCurrencies();
         for (Currency currency : currencies) {
