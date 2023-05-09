@@ -10,6 +10,8 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     private final int multiplier;
     
+    private final long allCents;
+    
     private final Currency currencyID;
     
     private static int calculateMultiplier(Currency currency) {
@@ -40,7 +42,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
      * the amount is &euro;197.54, this function returns 19754.
      */
     public long getFullAmountInCents() {
-        return this.singles * this.multiplier + this.cents;
+        return this.allCents;
     }
     
     /**
@@ -98,7 +100,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         if (this.currencyID != other.currencyID) {
             return false;
         }
-        return this.singles == other.singles;
+        return this.allCents == other.allCents;
     }
     
     @Override
@@ -130,13 +132,15 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         this.cents = divisions;
         this.multiplier = calculateMultiplier(currency);
         this.currencyID = currency;
+        this.allCents = this.singles * this.multiplier + this.cents;
     }
     
     private MoneyAmount(Currency currency, long fullAmountInCents, 
             int verifiedMultiplier) {
-        this.singles = fullAmountInCents / verifiedMultiplier;
+        this.allCents = fullAmountInCents;
+        this.singles = this.allCents / verifiedMultiplier;
         long adjust = this.singles * verifiedMultiplier;
-        this.cents = (short) (fullAmountInCents - adjust);
+        this.cents = (short) (this.allCents - adjust);
         this.multiplier = verifiedMultiplier;
         this.currencyID = currency;
     }
