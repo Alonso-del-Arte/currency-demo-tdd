@@ -3,6 +3,7 @@ package currency;
 import static currency.CurrencyChooser.chooseCurrency;
 
 import java.util.Currency;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
@@ -395,6 +396,23 @@ class MoneyAmountTest {
                     (short) (cents +  1));
             assertNotEquals(amountA, amountB);
         }
+    }
+    
+    @Test
+    void testHashCode() {
+        System.out.println("hashCode");
+        int capacity = RANDOM.nextInt(256) + 64;
+        Set<MoneyAmount> amounts = new HashSet<>(capacity);
+        Set<Integer> hashes = new HashSet<>(capacity);
+        for (int i = 0; i < capacity; i++) {
+            MoneyAmount amount = new MoneyAmount(RANDOM.nextInt(), 
+                    chooseCurrency());
+            amounts.add(amount);
+            hashes.add(amount.hashCode());
+        }
+        int expected = amounts.size();
+        int actual = hashes.size();
+        assertEquals(expected, actual);
     }
     
     @Test
