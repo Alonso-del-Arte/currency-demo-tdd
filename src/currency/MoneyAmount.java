@@ -94,7 +94,11 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
-        return this.currencyID == ((MoneyAmount) obj).currencyID;
+        MoneyAmount other = (MoneyAmount) obj;
+        if (this.currencyID != other.currencyID) {
+            return false;
+        }
+        return this.dollars == other.dollars;
     }
     
     @Override
