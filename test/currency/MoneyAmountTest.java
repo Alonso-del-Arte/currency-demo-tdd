@@ -379,11 +379,22 @@ class MoneyAmountTest {
     }
     
     @Test
-    void testNotEqualsDifferentDollarAmount() {
+    void testNotEqualsDifferentEuroAmount() {
         int units = RANDOM.nextInt(1048576);
         MoneyAmount amountA = new MoneyAmount(units, EUROS);
         MoneyAmount amountB = new MoneyAmount(units + 1, EUROS);
         assertNotEquals(amountA, amountB);
+    }
+    
+    @Test
+    void testNotEqualsDifferentCentsAmount() {
+        int dollarQty = RANDOM.nextInt(1000) + 1;
+        for (short cents = 0; cents < 99; cents++) {
+            MoneyAmount amountA = new MoneyAmount(dollarQty, DOLLARS, cents);
+            MoneyAmount amountB = new MoneyAmount(dollarQty, DOLLARS, 
+                    (short) (cents +  1));
+            assertNotEquals(amountA, amountB);
+        }
     }
     
     @Test
