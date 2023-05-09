@@ -4,7 +4,7 @@ import java.util.Currency;
 
 public class MoneyAmount implements Comparable<MoneyAmount> {
     
-    private final long dollars;
+    private final long singles;
     
     private final short cents;
     
@@ -30,7 +30,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
      * this function returns 197.
      */
     public long getUnits() {
-        return this.dollars;
+        return this.singles;
     }
     
     /**
@@ -40,7 +40,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
      * the amount is &euro;197.54, this function returns 19754.
      */
     public long getFullAmountInCents() {
-        return this.dollars * this.multiplier + this.cents;
+        return this.singles * this.multiplier + this.cents;
     }
     
     /**
@@ -67,11 +67,11 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     @Override
     public String toString() {
         if (this.multiplier == 1) {
-            return this.currencyID.getSymbol() + this.dollars;
+            return this.currencyID.getSymbol() + this.singles;
         }
         String intermediate = this.currencyID.getSymbol() 
-                + Math.abs(this.dollars) + '.';
-        if (this.dollars < 0) {
+                + Math.abs(this.singles) + '.';
+        if (this.singles < 0) {
             intermediate = '-' + intermediate;
         }
         if (this.cents < 10) {
@@ -98,7 +98,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         if (this.currencyID != other.currencyID) {
             return false;
         }
-        return this.dollars == other.dollars;
+        return this.singles == other.singles;
     }
     
     @Override
@@ -126,7 +126,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
                     + " is not valid";
             throw new IllegalArgumentException(excMsg);
         }
-        this.dollars = units;
+        this.singles = units;
         this.cents = divisions;
         this.multiplier = calculateMultiplier(currency);
         this.currencyID = currency;
@@ -134,8 +134,8 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     
     private MoneyAmount(Currency currency, long fullAmountInCents, 
             int verifiedMultiplier) {
-        this.dollars = fullAmountInCents / verifiedMultiplier;
-        long adjust = this.dollars * verifiedMultiplier;
+        this.singles = fullAmountInCents / verifiedMultiplier;
+        long adjust = this.singles * verifiedMultiplier;
         this.cents = (short) (fullAmountInCents - adjust);
         this.multiplier = verifiedMultiplier;
         this.currencyID = currency;
