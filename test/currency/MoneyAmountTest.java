@@ -379,6 +379,14 @@ class MoneyAmountTest {
     }
     
     @Test
+    void testNotEqualsDifferentDollarAmount() {
+        int units = RANDOM.nextInt(1048576);
+        MoneyAmount amountA = new MoneyAmount(units, EUROS);
+        MoneyAmount amountB = new MoneyAmount(units + 1, EUROS);
+        assertNotEquals(amountA, amountB);
+    }
+    
+    @Test
     void testConstructorRejectsPseudoCurrencies() {
         Set<Currency> currencies = Currency.getAvailableCurrencies();
         for (Currency currency : currencies) {
