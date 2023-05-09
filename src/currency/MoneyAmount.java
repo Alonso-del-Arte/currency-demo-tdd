@@ -106,7 +106,7 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     @Override
     public int hashCode() {
         int hash = this.currencyID.hashCode() << 16;
-        return /*hash +*/ (int) this.allCents;
+        return hash + (int) this.allCents;
     }
     
     // TODO: Write tests for this
