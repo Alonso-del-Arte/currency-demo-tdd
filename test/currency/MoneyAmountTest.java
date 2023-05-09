@@ -404,11 +404,24 @@ class MoneyAmountTest {
         int capacity = RANDOM.nextInt(256) + 64;
         Set<MoneyAmount> amounts = new HashSet<>(capacity);
         Set<Integer> hashes = new HashSet<>(capacity);
-        for (int i = 0; i < capacity; i++) {
+        while (amounts.size() < capacity) {
             MoneyAmount amount = new MoneyAmount(RANDOM.nextInt(), 
                     chooseCurrency());
+            MoneyAmount dinarAmount = new MoneyAmount(RANDOM.nextInt(), DINARS);
+            MoneyAmount dollarAmount = new MoneyAmount(RANDOM.nextInt(), 
+                    DOLLARS);
+            MoneyAmount euroAmount = new MoneyAmount(RANDOM.nextInt(), EUROS);
+            MoneyAmount yenAmount = new MoneyAmount(RANDOM.nextInt(), YEN);
             amounts.add(amount);
+            amounts.add(dinarAmount);
+            amounts.add(dollarAmount);
+            amounts.add(euroAmount);
+            amounts.add(yenAmount);
             hashes.add(amount.hashCode());
+            hashes.add(dinarAmount.hashCode());
+            hashes.add(dollarAmount.hashCode());
+            hashes.add(euroAmount.hashCode());
+            hashes.add(yenAmount.hashCode());
         }
         int expected = amounts.size();
         int actual = hashes.size();
