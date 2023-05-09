@@ -405,13 +405,12 @@ class MoneyAmountTest {
         Set<MoneyAmount> amounts = new HashSet<>(capacity);
         Set<Integer> hashes = new HashSet<>(capacity);
         while (amounts.size() < capacity) {
-            MoneyAmount amount = new MoneyAmount(RANDOM.nextInt(), 
-                    chooseCurrency());
-            MoneyAmount dinarAmount = new MoneyAmount(RANDOM.nextInt(), DINARS);
-            MoneyAmount dollarAmount = new MoneyAmount(RANDOM.nextInt(), 
-                    DOLLARS);
-            MoneyAmount euroAmount = new MoneyAmount(RANDOM.nextInt(), EUROS);
-            MoneyAmount yenAmount = new MoneyAmount(RANDOM.nextInt(), YEN);
+            int units = RANDOM.nextInt();
+            MoneyAmount amount = new MoneyAmount(units, chooseCurrency());
+            MoneyAmount dinarAmount = new MoneyAmount(units, DINARS);
+            MoneyAmount dollarAmount = new MoneyAmount(units, DOLLARS);
+            MoneyAmount euroAmount = new MoneyAmount(units, EUROS);
+            MoneyAmount yenAmount = new MoneyAmount(units, YEN);
             amounts.add(amount);
             amounts.add(dinarAmount);
             amounts.add(dollarAmount);
