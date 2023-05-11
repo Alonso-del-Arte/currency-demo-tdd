@@ -428,6 +428,32 @@ class MoneyAmountTest {
     }
     
     @Test
+    void testPlusDiffCurrenciesCausesException() {
+        MoneyAmount dollarAmount = new MoneyAmount(RANDOM.nextInt(), DOLLARS, 
+                (short) RANDOM.nextInt(100));
+        String dollarAmountStr = dollarAmount.toString();
+        MoneyAmount euroAmount = new MoneyAmount(RANDOM.nextInt(), EUROS, 
+                (short) RANDOM.nextInt(100));
+        String euroAmountStr = euroAmount.toString();
+        String msgPart = "Trying to add " + dollarAmountStr + " to " 
+                + euroAmountStr + ' ';
+        String msg = msgPart + "should've caused CurrencyMismatchException";
+        Throwable t = assertThrows(CurrencyMismatchException.class, () -> {
+            MoneyAmount badAmount = dollarAmount.plus(euroAmount);
+            System.out.println(msgPart + " is said to be " 
+                    + badAmount.toString());
+        }, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Message should not be null";
+        String dollarMsg = "Exception message should contain \"" 
+                + dollarAmountStr + '"';
+        assert excMsg.contains(dollarAmountStr) : dollarMsg;
+        String euroMsg = "Exception message should contain \"" 
+                + euroAmountStr + '"';
+        assert excMsg.contains(euroAmountStr) : euroMsg;
+    }
+    
+    @Test
     void testConstructorRejectsPseudoCurrencies() {
         Set<Currency> currencies = Currency.getAvailableCurrencies();
         for (Currency currency : currencies) {
