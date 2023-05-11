@@ -50,8 +50,7 @@ class CurrencyChooserTest {
     }
 
     @Test
-    void testChooseCurrencyOtherThan() {
-        System.out.println("chooseCurrencyOtherThan");
+    void testChooseCurrencyOtherThanDollars() {
         int numberOfTries = 20;
         Set<Currency> samples = new HashSet<>();
         int sampleNumber = 0;
@@ -71,6 +70,12 @@ class CurrencyChooserTest {
                 + " distinct, should've given at least " + expected 
                 + " distinct";
         assert expected < actual : msg;
+    }
+    
+//    @Test
+    void testChooseCurrencyOtherThan() {
+        System.out.println("chooseCurrencyOtherThan");
+        fail("Haven't written test yet");
     }
 
 }

@@ -42,7 +42,11 @@ public class CurrencyChooser {
 
     // TODO: Write tests for this
     public static Currency chooseCurrencyOtherThan(Currency currency) {
-        return currency;
+        Currency otherCurrency = Currency.getInstance("USD");
+        while (otherCurrency == currency) {
+            otherCurrency = chooseCurrency();
+        }
+        return otherCurrency;
     }
 
 }
