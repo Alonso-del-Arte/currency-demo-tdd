@@ -65,6 +65,31 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         return this.currencyID;
     }
     
+    // TODO: Write tests for this
+    public MoneyAmount plus(MoneyAmount addend) {
+        return this;
+    }
+    
+    // TODO: Write tests for this
+    public MoneyAmount negate() {
+        return this;
+    }
+    
+    // TODO: Write tests for this
+    public MoneyAmount minus(MoneyAmount subtrahend) {
+        return this;
+    }
+    
+    // TODO: Write tests for this
+    public MoneyAmount times(int multiplicand) {
+        return this;
+    }
+    
+    // TODO: Write tests for this
+    public MoneyAmount divides(int divisor) {
+        return this;
+    }
+    
     // TODO: Refactor to reduce cyclomatic complexity
     @Override
     public String toString() {
