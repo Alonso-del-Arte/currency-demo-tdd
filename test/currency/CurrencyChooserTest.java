@@ -1,10 +1,13 @@
 package currency;
 
+import static currency.MoneyAmountTest.*;
+
 import java.util.Currency;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CurrencyChooserTest {
     
@@ -41,6 +44,30 @@ class CurrencyChooserTest {
         int actual = samples.size();
         String msg = "Trying to pick " + numberOfTries + " from set of " 
                 + totalNumberOfCurrencies + " gave " + actual 
+                + " distinct, should've given at least " + expected 
+                + " distinct";
+        assert expected < actual : msg;
+    }
+
+    @Test
+    void testChooseCurrencyOtherThan() {
+        System.out.println("chooseCurrencyOtherThan");
+        int numberOfTries = 20;
+        Set<Currency> samples = new HashSet<>();
+        int sampleNumber = 0;
+        String dollarsDisplayName = DOLLARS.getDisplayName();
+        while (sampleNumber < numberOfTries) {
+            Currency sample = CurrencyChooser.chooseCurrencyOtherThan(DOLLARS);
+            String msg = "Chosen currency " + sample.getDisplayName() 
+                    + " expected to not be " + dollarsDisplayName;
+            assert sample != DOLLARS : msg;
+            samples.add(sample);
+            sampleNumber++;
+        }
+        int expected = 4 * numberOfTries / 5;
+        int actual = samples.size();
+        String msg = "Trying to pick " + numberOfTries + " other than " 
+                + dollarsDisplayName + " gave " + actual 
                 + " distinct, should've given at least " + expected 
                 + " distinct";
         assert expected < actual : msg;

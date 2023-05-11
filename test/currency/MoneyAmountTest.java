@@ -17,7 +17,7 @@ class MoneyAmountTest {
     private static final Currency DINARS 
             = Currency.getInstance(Locale.forLanguageTag("ar-LY"));
     
-    private static final Currency DOLLARS = Currency.getInstance(Locale.US);
+    static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
     private static final Currency EUROS = Currency.getInstance("EUR");
     

@@ -40,4 +40,9 @@ public class CurrencyChooser {
         return chooseCurrency();
     }
 
+    // TODO: Write tests for this
+    public static Currency chooseCurrencyOtherThan(Currency currency) {
+        return currency;
+    }
+
 }
