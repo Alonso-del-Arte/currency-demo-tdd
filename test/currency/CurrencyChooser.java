@@ -48,6 +48,7 @@ public class CurrencyChooser {
         switch (fractionDigits) {
         case 2: return Currency.getInstance(java.util.Locale.CANADA);
         case 3: return Currency.getInstance("LYD");
+        case 4: return Currency.getInstance("CLF");
         default: return Currency.getInstance(java.util.Locale.JAPAN);
         }
     }
