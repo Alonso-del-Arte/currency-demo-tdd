@@ -119,4 +119,14 @@ class CurrencyChooserTest {
         assertEquals(expected, actual, msg);
     }
 
+    @Test
+    void testChooseCurrencyWith1000Darahim() {
+        int expected = 3;
+        Currency currency = CurrencyChooser.chooseCurrency(expected);
+        int actual = currency.getDefaultFractionDigits();
+        String msg = "Chosen currency " + currency.getDisplayName() 
+                + " should have " + expected + " default fraction digits";
+        assertEquals(expected, actual, msg);
+    }
+
 }
