@@ -4,6 +4,7 @@ import static currency.MoneyAmountTest.*;
 
 import java.util.Currency;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -150,5 +151,23 @@ class CurrencyChooserTest {
                 + " should have " + expected + " default fraction digits";
         assertEquals(expected, actual, msg);
     }
+    
+    @Test
+    void testUnavailableFractionDigitsCauseException() {
+        int unlikelyFractionDigits = Integer.MAX_VALUE;
+        Throwable t = assertThrows(NoSuchElementException.class, () -> {
+            Currency badCurrency 
+                    = CurrencyChooser.chooseCurrency(unlikelyFractionDigits);
+            System.out.println("Somehow asking for currency with " 
+                    + unlikelyFractionDigits + " gave " 
+                    + badCurrency.getDisplayName());
+        });
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Message should not be null";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    // TODO: Write tests that different currencies are chosen for repeated 0, 2 
+    // or 3 fraction digits.
 
 }
