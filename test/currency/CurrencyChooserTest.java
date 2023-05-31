@@ -159,7 +159,7 @@ class CurrencyChooserTest {
             Currency badCurrency 
                     = CurrencyChooser.chooseCurrency(unlikelyFractionDigits);
             System.out.println("Somehow asking for currency with " 
-                    + unlikelyFractionDigits + " gave " 
+                    + unlikelyFractionDigits + " fraction digits gave " 
                     + badCurrency.getDisplayName());
         });
         String excMsg = t.getMessage();
