@@ -129,4 +129,26 @@ class CurrencyChooserTest {
         assertEquals(expected, actual, msg);
     }
 
+    /**
+     * Test of the chooseCurrency function of the CurrencyChooser class. If the 
+     * requested number of fraction digits is 4, there might be only one answer 
+     * the function can give: the Chilean unit of account (UF), ISO-4217 code 
+     * CLF. One UF subdivides into what I'm going to call cents of cents until I 
+     * can find a better term. It's actually kind of odd that the Chilean peso 
+     * (CLP) no longer divides into cents like it used to. But that's a whole 
+     * other topic.
+     * <p>If your Java runtime does not recognize the Chilean UF nor any other 
+     * currency with ten thousand divisions, maybe either ignore or comment this 
+     * test out.</p>
+     */
+    @Test
+    void testChooseCurrencyWith10000Divisions() {
+        int expected = 4;
+        Currency currency = CurrencyChooser.chooseCurrency(expected);
+        int actual = currency.getDefaultFractionDigits();
+        String msg = "Chosen currency " + currency.getDisplayName() 
+                + " should have " + expected + " default fraction digits";
+        assertEquals(expected, actual, msg);
+    }
+
 }
