@@ -109,4 +109,14 @@ class CurrencyChooserTest {
         assertEquals(expected, actual, msg);
     }
 
+    @Test
+    void testChooseCurrencyWith100Cents() {
+        int expected = 2;
+        Currency currency = CurrencyChooser.chooseCurrency(expected);
+        int actual = currency.getDefaultFractionDigits();
+        String msg = "Chosen currency " + currency.getDisplayName() 
+                + " should have " + expected + " default fraction digits";
+        assertEquals(expected, actual, msg);
+    }
+
 }
