@@ -165,6 +165,9 @@ class CurrencyChooserTest {
         String excMsg = t.getMessage();
         assert excMsg != null : "Message should not be null";
         System.out.println("\"" + excMsg + "\"");
+        String digitString = Integer.toString(unlikelyFractionDigits);
+        String msg = "Exception message should include \"" + digitString + "\"";
+        assert excMsg.contains(digitString) : msg;
     }
     
     // TODO: Write tests that different currencies are chosen for repeated 0, 2 
