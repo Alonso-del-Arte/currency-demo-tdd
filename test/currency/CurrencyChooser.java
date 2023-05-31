@@ -44,12 +44,12 @@ public class CurrencyChooser {
         return CURRENCIES.get(index);
     }
 
-    // TODO: Write tests for this
     public static Currency chooseCurrency(int fractionDigits) {
-        if (fractionDigits == 2) {
-            return Currency.getInstance(java.util.Locale.CANADA);
+        switch (fractionDigits) {
+        case 2: return Currency.getInstance(java.util.Locale.CANADA);
+        case 3: return Currency.getInstance("LYD");
+        default: return Currency.getInstance(java.util.Locale.JAPAN);
         }
-        return Currency.getInstance(java.util.Locale.JAPAN);
     }
 
     /**
