@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class CurrencyChooser {
@@ -45,7 +46,7 @@ public class CurrencyChooser {
 
     // TODO: Write tests for this
     public static Currency chooseCurrency(int fractionDigits) {
-        return chooseCurrency();
+        return Currency.getInstance("XTS");
     }
 
     /**
