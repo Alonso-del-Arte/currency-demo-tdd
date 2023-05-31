@@ -46,7 +46,7 @@ public class CurrencyChooser {
 
     // TODO: Write tests for this
     public static Currency chooseCurrency(int fractionDigits) {
-        return Currency.getInstance("XTS");
+        return Currency.getInstance(java.util.Locale.JAPAN);
     }
 
     /**
