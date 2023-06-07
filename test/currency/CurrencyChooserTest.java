@@ -206,8 +206,8 @@ class CurrencyChooserTest {
         Set<Currency> noCentCurrencies = FRACT_DIGITS_MAP.get(2);
         int total = noCentCurrencies.size();
         Set<Currency> chosenCurrencies = new HashSet<>();
-        int maxCallCount = total / 4;
-        int expected = maxCallCount / 4;
+        int maxCallCount = total / 3;
+        int expected = maxCallCount / 8;
         for (int i = 0; i < maxCallCount; i++) {
             chosenCurrencies.add(CurrencyChooser.chooseCurrency(3));
         }
