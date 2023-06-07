@@ -3,7 +3,9 @@ package currency;
 import static currency.MoneyAmountTest.*;
 
 import java.util.Currency;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -17,10 +19,23 @@ class CurrencyChooserTest {
     
     private static final Set<Currency> PSEUDO_CURRENCIES = new HashSet<>();
     
+    private static final Map<Integer, Set<Currency>> FRACT_DIGITS_MAP 
+            = new HashMap<>();
+    
     static {
         for (Currency currency : CURRENCIES) {
-            if (currency.getDefaultFractionDigits() < 0) {
+            int fractDigits = currency.getDefaultFractionDigits();
+            if (fractDigits < 0) {
                 PSEUDO_CURRENCIES.add(currency);
+            } else {
+                Set<Currency> digitGroupedSet;
+                if (FRACT_DIGITS_MAP.containsKey(fractDigits)) {
+                    digitGroupedSet = FRACT_DIGITS_MAP.get(fractDigits);
+                } else {
+                    digitGroupedSet = new HashSet<>();
+                    FRACT_DIGITS_MAP.put(fractDigits, digitGroupedSet);
+                }
+                digitGroupedSet.add(currency);
             }
         }
         CURRENCIES.removeAll(PSEUDO_CURRENCIES);
@@ -170,7 +185,55 @@ class CurrencyChooserTest {
         assert excMsg.contains(digitString) : msg;
     }
     
-    // TODO: Write tests that different currencies are chosen for repeated 0, 2 
-    // or 3 fraction digits.
-
+    @Test
+    void testChooseNoCentsCurrencyRandomlyEnough() {
+        Set<Currency> noCentCurrencies = FRACT_DIGITS_MAP.get(0);
+        int total = noCentCurrencies.size();
+        Set<Currency> chosenCurrencies = new HashSet<>();
+        for (int i = 0; i < total; i++) {
+            chosenCurrencies.add(CurrencyChooser.chooseCurrency(0));
+        }
+        int expected = total / 2;
+        int actual = chosenCurrencies.size();
+        String msg = "Out of " + total 
+                + " currencies with no divisions, at least " + expected 
+                + " should've been chosen, " + actual + " were chosen";
+        assert actual >= expected : msg;
+    }
+    
+    @Test
+    void testChooseCentCurrencyRandomlyEnough() {
+        Set<Currency> noCentCurrencies = FRACT_DIGITS_MAP.get(2);
+        int total = noCentCurrencies.size();
+        Set<Currency> chosenCurrencies = new HashSet<>();
+        int maxCallCount = total / 8;
+        int expected = 9 * maxCallCount / 10;
+        for (int i = 0; i < maxCallCount; i++) {
+            chosenCurrencies.add(CurrencyChooser.chooseCurrency(3));
+        }
+        int actual = chosenCurrencies.size();
+        String msg = "Out of " + total 
+                + " currencies dividing into 100 cents, at least " + expected 
+                + " should've been chosen after " + maxCallCount + " calls, " 
+                + actual + " were chosen";
+        assert actual >= expected : msg;
+    }
+    
+    @Test
+    void testChooseDarahimCurrencyRandomlyEnough() {
+        Set<Currency> noCentCurrencies = FRACT_DIGITS_MAP.get(3);
+        int total = noCentCurrencies.size();
+        Set<Currency> chosenCurrencies = new HashSet<>();
+        for (int i = 0; i < total; i++) {
+            chosenCurrencies.add(CurrencyChooser.chooseCurrency(3));
+        }
+        int expected = total / 2;
+        int actual = chosenCurrencies.size();
+        String msg = "Out of " + total 
+                + " currencies dividing into 1,000 darahim, at least " 
+                + expected + " should've been chosen, " + actual 
+                + " were chosen";
+        assert actual >= expected : msg;
+    }
+    
 }
