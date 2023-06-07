@@ -18,7 +18,7 @@ public class CurrencyChooser {
 
     private static final Set<Currency> PSEUDO_CURRENCIES = new HashSet<>();
 
-    private static final Map<Integer, Currency> CURRENCIES_DIGITS_MAP 
+    private static final Map<Integer, Set<Currency>> CURRENCIES_DIGITS_MAP 
             = new HashMap<>();
 
     static {
@@ -27,7 +27,14 @@ public class CurrencyChooser {
             if (fractionDigits < 0) {
                 PSEUDO_CURRENCIES.add(currency);
             } else {
-                CURRENCIES_DIGITS_MAP.put(fractionDigits, currency);
+                Set<Currency> digitGroupedSet;
+                if (CURRENCIES_DIGITS_MAP.containsKey(fractionDigits)) {
+                    digitGroupedSet = CURRENCIES_DIGITS_MAP.get(fractionDigits);
+                } else {
+                    digitGroupedSet = new HashSet<>();
+                    CURRENCIES_DIGITS_MAP.put(fractionDigits, digitGroupedSet);
+                }
+                digitGroupedSet.add(currency);
             }
         }
         CURRENCIES.removeAll(PSEUDO_CURRENCIES);
@@ -44,15 +51,38 @@ public class CurrencyChooser {
         return CURRENCIES.get(index);
     }
 
+    /**
+     * Chooses a currency with a specified number of default fraction digits. 
+     * Thus, a currency that divides into 100 cents (corresponding to 2 default 
+     * fraction digits) can be chosen.
+     * @param fractionDigits How many fraction digits the currency should have. 
+     * Examples: 2, 3, 0, 4, 7, &minus;6.
+     * @return A currency with the specified number of fraction digits. 
+     * Examples: For 2, the Guatemalan quetzal (GTQ), one of which divides into 
+     * 100 centavos; for 3, the Omani rial (OMR), one of which divides into 
+     * 1,000 baisa; for 0, the Luxembourgian franc, one of which does not 
+     * normally divide into any kind of cent, unlike the Swiss franc; and for 4, 
+     * the only available option might be the Chilean unit of account (CLF), 
+     * which, however, does not have any kind of circulating bills or coins 
+     * associated with it. 
+     * @throws NoSuchElementException If there are no currencies for 
+     * <code>fractionDigits</code>. In the examples given above, 7 would almost 
+     * certainly cause this exception, as such a currency is unlikely to be on 
+     * the list of available currencies, and &minus;6 definitely would, as 
+     * <code>Currency</code> instances with negative default fraction digits are 
+     * ignored by this chooser.
+     */
     public static Currency chooseCurrency(int fractionDigits) {
-        switch (fractionDigits) {
-        case 0: return Currency.getInstance(java.util.Locale.JAPAN);
-        case 2: return Currency.getInstance(java.util.Locale.CANADA);
-        case 3: return Currency.getInstance("LYD");
-        case 4: return Currency.getInstance("CLF");
-        default: String excMsg = "No available currency with " + fractionDigits 
-                + " fraction digits";
-        throw new NoSuchElementException(excMsg);
+        if (CURRENCIES_DIGITS_MAP.containsKey(fractionDigits)) {
+            List<Currency> currencies 
+                    = new ArrayList<>(CURRENCIES_DIGITS_MAP
+                            .get(fractionDigits));
+            int index = RANDOM.nextInt(currencies.size());
+            return currencies.get(index);
+        } else {
+            String excMsg = "No available currency with " + fractionDigits 
+                    + " fraction digits";
+            throw new NoSuchElementException(excMsg);
         }
     }
 
