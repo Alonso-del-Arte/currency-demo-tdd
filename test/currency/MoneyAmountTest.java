@@ -62,6 +62,18 @@ class MoneyAmountTest {
         long actual = amount.getFullAmountInCents();
         assertEquals(expected, actual);
     }
+    
+    @Test
+    void testGetFullAmountInCentsNegative() {
+        int dollars = -RANDOM.nextInt(524288) - 1;
+        short cents = (short) RANDOM.nextInt(100);
+        MoneyAmount amount = new MoneyAmount(dollars, DOLLARS, cents);
+        int expected = dollars * 100 - cents;
+        long actual = amount.getFullAmountInCents();
+        String msg = "Full amount in cents for " + amount.toString() 
+                + " should be " + expected;
+        assertEquals(expected, actual, msg);
+    }
 
     @Test
     void testGetDivisions() {
