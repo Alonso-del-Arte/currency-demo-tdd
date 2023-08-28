@@ -158,7 +158,9 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
         this.cents = divisions;
         this.multiplier = calculateMultiplier(currency);
         this.currencyID = currency;
-        this.allCents = this.singles * this.multiplier + this.cents;
+        int centSignAdjust = (this.singles < 0) ? -1 : 1;
+        this.allCents = this.singles * this.multiplier + centSignAdjust 
+                * this.cents;
     }
     
     private MoneyAmount(Currency currency, long fullAmountInCents, 
