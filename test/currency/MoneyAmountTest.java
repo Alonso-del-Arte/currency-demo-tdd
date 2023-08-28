@@ -83,7 +83,7 @@ class MoneyAmountTest {
     
     @Test
     void testToStringZeroToNineCents() {
-        for (short cents = 0; cents < 9; cents++) {
+        for (short cents = 0; cents < 10; cents++) {
             MoneyAmount amount = new MoneyAmount(0, DOLLARS, cents);
             String expected = "$0.0" + cents;
             String actual = amount.toString();
@@ -105,7 +105,7 @@ class MoneyAmountTest {
     void testToStringDollarsPlusZeroToNineCents() {
         int dollarQty = RANDOM.nextInt(1000) + 1;
         String part = "$" + dollarQty + ".0";
-        for (short cents = 0; cents < 9; cents++) {
+        for (short cents = 0; cents < 10; cents++) {
             MoneyAmount amount = new MoneyAmount(dollarQty, DOLLARS, cents);
             String expected = part + cents;
             String actual = amount.toString();
@@ -129,7 +129,7 @@ class MoneyAmountTest {
     void testToStringNegativeDollarAmountPlusZeroToNineCents() {
         int dollarQty = RANDOM.nextInt(1000) + 1;
         String part = "-$" + dollarQty + ".0";
-        for (short cents = 0; cents < 9; cents++) {
+        for (short cents = 0; cents < 10; cents++) {
             MoneyAmount amount = new MoneyAmount(-dollarQty, DOLLARS, cents);
             String expected = part + cents;
             String actual = amount.toString();
@@ -151,7 +151,7 @@ class MoneyAmountTest {
     
     @Test
     void testToStringEurosZeroToNineCents() {
-        for (short cents = 0; cents < 9; cents++) {
+        for (short cents = 0; cents < 10; cents++) {
             MoneyAmount amount = new MoneyAmount(0, EUROS, cents);
             String expected = "EUR0.0" + cents;
             String actual = amount.toString();
@@ -173,7 +173,7 @@ class MoneyAmountTest {
     void testToStringEurosPlusZeroToNineCents() {
         int euroQty = RANDOM.nextInt(1000) + 1;
         String part = "EUR" + euroQty + ".0";
-        for (short cents = 0; cents < 9; cents++) {
+        for (short cents = 0; cents < 10; cents++) {
             MoneyAmount amount = new MoneyAmount(euroQty, EUROS, cents);
             String expected = part + cents;
             String actual = amount.toString();
@@ -197,7 +197,7 @@ class MoneyAmountTest {
     void testToStringEurosNegativeEuroAmountPlusZeroToNineCents() {
         int euroQty = RANDOM.nextInt(1000) + 1;
         String part = "-EUR" + euroQty + ".0";
-        for (short cents = 0; cents < 9; cents++) {
+        for (short cents = 0; cents < 10; cents++) {
             MoneyAmount amount = new MoneyAmount(-euroQty, EUROS, cents);
             String expected = part + cents;
             String actual = amount.toString();
@@ -219,7 +219,7 @@ class MoneyAmountTest {
     
     @Test
     void testToStringDinarsZeroToNineDarahim() {
-        for (short darahim = 0; darahim < 9; darahim++) {
+        for (short darahim = 0; darahim < 10; darahim++) {
             MoneyAmount amount = new MoneyAmount(0, DINARS, darahim);
             String expected = "LYD0.00" + darahim;
             String actual = amount.toString();
@@ -251,7 +251,7 @@ class MoneyAmountTest {
     void testToStringDinarsPlusZeroToNineDarahim() {
         int dinarQty = RANDOM.nextInt(1000) + 1;
         String part = "LYD" + dinarQty + ".00";
-        for (short darahim = 0; darahim < 9; darahim++) {
+        for (short darahim = 0; darahim < 10; darahim++) {
             MoneyAmount amount = new MoneyAmount(dinarQty, DINARS, darahim);
             String expected = part + darahim;
             String actual = amount.toString();
@@ -287,7 +287,7 @@ class MoneyAmountTest {
     void testToStringDinarsNegativeDinarAmountPlusZeroToNineDarahim() {
         int dinarQty = RANDOM.nextInt(1000) + 1;
         String part = "-LYD" + dinarQty + ".00";
-        for (short darahim = 0; darahim < 9; darahim++) {
+        for (short darahim = 0; darahim < 10; darahim++) {
             MoneyAmount amount = new MoneyAmount(-dinarQty, DINARS, darahim);
             String expected = part + darahim;
             String actual = amount.toString();
