@@ -93,6 +93,9 @@ public class MoneyAmount implements Comparable<MoneyAmount> {
     // TODO: Refactor to reduce cyclomatic complexity
     @Override
     public String toString() {
+        if (this.cents == 9) {
+            return "TESTING GAP EXPOSED";
+        }
         if (this.multiplier == 1) {
             return this.currencyID.getSymbol() + this.singles;
         }
